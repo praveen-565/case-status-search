@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h5 {
+    font-size: 1.25rem;
+    color: #5a3d0b;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input, select {
+    border-radius: 5px;
+  }
+  
+  button {
+    border-radius: 5px;
+  }
+  
+  .captcha-img {
+    width: 120px;
+    height: 40px;
+    border: 1px solid #ccc;
+  }
+  
+  .btn-primary {
+    background-color: #5a3d0b;
+    border-color: #5a3d0b;
+  }
+  
+  .btn-primary:hover {
+    background-color: #795548;
+    border-color: #795548;
+  }
+  
+  .btn-secondary {
+    background-color: #ddd;
+    color: #000;
+  }
+  
+  #captchaBox {
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: none;
+    border-radius: 5px;
+    text-align: center;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+  }
+  
+  button {
+    cursor: pointer;
+  }

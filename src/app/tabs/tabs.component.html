@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <!-- Header -->
+    <h3 class="text-center fw-bold mb-3">Case Status: Search by Case Type</h3>
+    
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item" *ngFor="let tab of tabs">
+            <a 
+              class="nav-link" 
+              [ngClass]="{ 'active': tab.isActive }" 
+              (click)="activateTab(tab.id)">
+                {{ tab.label }}
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+        <div 
+          *ngFor="let tab of tabs" 
+          [id]="tab.id" 
+          class="tab-pane fade" 
+          [ngClass]="{ 'show active': tab.isActive }">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <ng-container [ngSwitch]="tab.id">
+                        <app-case-number *ngSwitchCase="'caseNumber'"></app-case-number>
+                        <app-party-name *ngSwitchCase="'partyName'"></app-party-name>
+                        <app-advocate-name *ngSwitchCase="'advocateName'"></app-advocate-name>
+                        <app-case-type *ngSwitchCase="'caseType'"></app-case-type>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+.container {
+  max-width: 900px;
+}
+
+/* Styling for the header */
+h3 {
+  color: #000; /* Black for contrast */
+  font-weight: bold;
+}
+
+/* Card styling */
+.card {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation tabs */
+.nav-tabs {
+  background-color: #8B0000; /* Dark Red */
+  border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+  font-weight: bold;
+  color: #fff; /* White text */
+  background-color: #8B0000; /* Dark Red */
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 5px;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #FFD700; /* Gold */
+  color: #000; /* Black text */
+}
+
+/* Form elements */
+.form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control,
+.form-select {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Captcha box */
+.captcha-box {
+  width: 100px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.btn-danger {
+  background-color: #8B0000; /* Dark Red */
+  border: none;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #700000; /* Darker red */
+}
+
+.btn-warning {
+  background-color: #FFD700; /* Gold */
+  color: #000;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #FFC107; /* Slightly darker gold */
+}
