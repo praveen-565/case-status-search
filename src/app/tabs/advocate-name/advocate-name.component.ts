@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-advocate-name',
@@ -23,8 +24,22 @@ export class AdvocateNameComponent {
     { value: 'PAYMENT OF GRATUITY Act 1972', label: 'PAYMENT OF GRATUITY Act 1972(PG)' },
   ];
 
+  caseList: any;
+  caseView: any;
+  showList:boolean = false;
+  isCaseView: boolean = false;
   captchaText: string = '';
   captchaError: string = '';
+
+  queryParams = {
+    pageNumber: '0',
+    pageSize: '25',
+    advocateName: '',
+  }
+
+   constructor(private apiService:ApiService){
+       
+    }
 
   ngOnInit() {
     this.generateCaptcha();
@@ -53,12 +68,33 @@ export class AdvocateNameComponent {
 
   onSubmit(form: any): void {
     if (this.validateCaptcha(form.value.captcha)) {
-      alert('Form submitted successfully with data: ' + JSON.stringify(form.value));
-
+      this.queryParams = { ...this.queryParams, advocateName:form.value.advocateName };
+      const qpString = new URLSearchParams(this.queryParams).toString();
+      this.apiService.getAllCaseList(qpString).subscribe((val:any) => {
+        this.caseList = val.response.data;
+        this.showList = true;
+      })
     }
   }
 
   resetForm(): void {
     this.generateCaptcha();
   }
+
+  viewCase(eve:any){
+    this.apiService.getAllCaseView(`caseReferenceId=${eve.caseReferenceId}`).subscribe((list: any) => {
+      this.caseView = list.response;
+      this.isCaseView = true;
+    });
+  }
+
+  bockToList(){
+    this.isCaseView = false;
+    this.showList = false;
+  }
+
+  truncateText(text: string, limit: number): string {
+    return text.length > limit ? text.substring(0, limit) + '...' : text;
+  }
+
 }

@@ -1,4 +1,4 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" *ngIf="!isCaseView">
 
   <h5 class="text-center fw-bold my-3">Case Status: Search by Advocate</h5>
     <p class="text-end text-danger fw-bold">All fields marked with * are required</p>
@@ -53,7 +53,120 @@
 
   <!-- Buttons -->
   <div class="d-flex justify-content-between">
-    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Search</button>
-    <button type="reset" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    <button type="submit" class="btn btn-custom-primary" [disabled]="form.invalid">
+      <i class="bi bi-search"></i> Search
+    </button>
+    <button type="reset" class="btn btn-custom-secondary" (click)="resetForm()">
+      <i class="bi bi-x-circle"></i> Reset
+    </button>
   </div>
 </form>
+
+<!-- Case List Table -->
+<div class="container mt-4" *ngIf="showList && !isCaseView">
+  <div class="card p-3 shadow-sm">
+    <h5 class="fw-bold text-center mb-3">Case Results</h5>
+    <table class="table case-table">
+      <thead class="bg-danger text-white case-header">
+        <tr>
+          <th>Serial Number</th>
+          <th>Case Type/Case Number</th>
+          <th>Petitioner versus Respondent</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="caseList.length === 0">No Data</tbody>
+      <tbody *ngIf="caseList.length>0">
+        <tr *ngFor="let case of caseList; let i = index" class="case-row">
+          <td>{{ i + 1 }}</td>
+          <td>{{ case.caseType }}/ ({{ case.caseId }})</td>
+          <td>{{ case.petitionerName }} <br> Versus <br> {{ case.respondentName }}</td>
+          <td>
+            <button class="btn btn-custom-view" (click)="viewCase(case)">
+              <i class="bi bi-eye"></i> View
+            </button>
+          </td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="case-details-container" *ngIf="isCaseView">
+  <button class="btn btn-custom-back" (click)="bockToList();">
+    <i class="bi bi-arrow-left"></i> Back
+  </button>
+  
+
+  <h2 class="title">LABOUR COURT, AURANGABAD</h2>
+
+  <!-- Case Details -->
+  <div class="section">
+    <h3 class="section-title">Case Details</h3>
+    <div class="section-content">
+      <p><span class="label">Case Type:</span> {{ caseView.caseDetails.caseType }}</p>
+      <p><span class="label">Filing Number:</span> {{ caseView.caseDetails.filingNumber }}</p>
+      <p><span class="label">Filing Date:</span> {{ caseView.caseDetails.filingDate }}</p>
+      <p><span class="label">Registration Number:</span> {{ caseView.caseDetails.registrationNumber }}</p>
+      <p><span class="label">Registration Date:</span> {{ caseView.caseDetails.registrationDate }}</p>
+      <p><span class="label">CNR Number:</span> {{ caseView.caseDetails.cnrNumber }}</p>
+    </div>
+  </div>
+
+  <!-- Case Status -->
+  <div class="section">
+    <h3 class="section-title">Case Status</h3>
+    <div class="section-content">
+      <p><span class="label">First Hearing Date:</span> {{ caseView.firstHearingDate }}</p>
+      <p><span class="label">Next Hearing Date:</span> {{ caseView.nextHearingDate }}</p>
+      <p><span class="label">Case Status:</span> {{ caseView.caseView }}</p>
+      <p><span class="label">Stage of Case:</span> {{ caseView.stageOfCase }}</p>
+      <p><span class="label">Court Number and Judge:</span> {{ caseView.courtAndJudge }}</p>
+    </div>
+  </div>
+
+  <!-- Petitioner and Advocate -->
+  <div class="section">
+    <h3 class="section-title">Petitioner and Advocate</h3>
+    <p class="list-item">
+      {{ caseView.petitionerDetails.petitionerName }}
+      <span class="label">Advocate:</span> {{caseView.petitionerAdvocates[0].advocateName }}
+    </p>
+
+    <h3 class="section-title">Respondent and Advocate</h3>
+    <p class="list-item">
+      {{ caseView.respondentDetails.respondentName }}
+      <span class="label">Advocate:</span> {{ caseView.advocate }}
+    </p>
+  </div>
+
+  <!-- Acts -->
+  <div class="section">
+    <h3 class="section-title">Acts</h3>
+    <div class="section-content">
+      <p><span class="label">Under Act(s):</span> {{ caseView.underActs }}</p>
+      <p><span class="label">Under Section(s):</span> {{ caseView.underSections }}</p>
+    </div>
+  </div>
+
+  <!-- Case History -->
+  <div class="section">
+    <h3 class="section-title">Case History</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Notice Created</th>
+          <th>Next Hiring</th>
+          <th>Notice Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let history of caseView.notices">
+          <td>{{ history.currentDate | date }}</td>
+          <td>{{ history.nextDateFixed | date }}</td>
+          <td>{{ truncateText(history.noticeContent, 300) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

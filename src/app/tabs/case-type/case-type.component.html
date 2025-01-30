@@ -64,7 +64,7 @@
           <th>View</th>
         </tr>
       </thead>
-      <tbody *ngIf="caseList.length === 0">No Data</tbody>
+      <tbody *ngIf="caseList.length === 0" class="text-center">No Data</tbody>
       <tbody *ngIf="caseList.length>0">
         <tr *ngFor="let case of caseList; let i = index" class="case-row">
           <td>{{ i + 1 }}</td>
@@ -108,7 +108,7 @@
       <div class="section-content">
         <p><span class="label">First Hearing Date:</span> {{ caseView.firstHearingDate }}</p>
         <p><span class="label">Next Hearing Date:</span> {{ caseView.nextHearingDate }}</p>
-        <p><span class="label">Case Status:</span> {{ caseView.caseView }}</p>
+        <p><span class="label">Case Status:</span> {{ caseView.caseStatus }}</p>
         <p><span class="label">Stage of Case:</span> {{ caseView.stageOfCase }}</p>
         <p><span class="label">Court Number and Judge:</span> {{ caseView.courtAndJudge }}</p>
       </div>
